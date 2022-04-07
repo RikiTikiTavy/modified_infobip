@@ -1,0 +1,51 @@
+{
+  "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "images/infobip.png",
+    "iconSmall": "images/infobipSmall.png",
+    "category": "message"
+  },
+  "type": "REST",
+  "lang": {
+    "en-US": {
+      "name": "modified infobips",
+      "description": "Send SMS over Infobip"
+    }
+  },
+  "arguments": {
+    "execute": {
+      "inArguments": [],
+      "outArguments": [],
+      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
+    }
+  },
+  "configurationArguments": {
+    "publish": {
+      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
+    }
+  },
+  "wizardSteps": [{
+      "label": "Configuration",
+      "key": "step1"
+    },
+    {
+      "label": "Validation",
+      "key": "step2"
+    }
+  ],
+  "userInterfaces": {
+    "configModal": {
+      "height": 200,
+      "width": 300,
+      "fullscreen": true
+    }
+  },
+  "schema": {
+    "arguments": {
+      "execute": {
+        "inArguments": [],
+        "outArguments": []
+      }
+    }
+  }
+}
