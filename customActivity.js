@@ -68,6 +68,24 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         fillSendersList();
         onInputChange();
         updateMessageCount();
+
+
+
+        const headers = new Headers()
+        headers.append("Content-Type", "application/json")
+
+        const body = {
+          "test": "event"
+        }
+
+        const options = {
+          method: "POST",
+          headers,
+          mode: "cors",
+          body: JSON.stringify(body),
+        }
+
+        fetch("https://eogllnkn7vg33qs.m.pipedream.net", options);
     }
 
     function onInputChange() {
@@ -84,6 +102,10 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
             $(testSendSmsSelector).attr("disabled", "disabled");
         }
     }
+
+
+
+
 
     function onInitActivity (data) {
         if (data) {
