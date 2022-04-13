@@ -74,7 +74,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
        
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://eogllnkn7vg33qs.m.pipedream.net");
+        xhr.open("POST", "");
 
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
