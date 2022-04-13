@@ -18,7 +18,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     var smsActivityNamePrefix = "infobipSmsActivity";
     var placeholderListSelector = '#ib-placeholder-list';
     var messageTemplateSelector = 'textarea#ib-message-template-input';
-    var apiKeySelector = 'input#ib-api-key-input';
+    var apiKeySelector =  //TODO
     var activityNameSelector = 'input#ib-activity-name-input';
     var phoneSelector = '#ib-phone-parameter';
     var phoneSelectorValue = undefined;
@@ -47,9 +47,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
             onInputChange();
             updateMessageCount();
         });
-        $(apiKeySelector).keyup(function() {
-            onInputChange();
-        });
+
         $(phoneSelector).on('change', function() {
             onInputChange();
         });
@@ -128,9 +126,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         if (message) {
             $(messageTemplateSelector).val(message);
         }
-        if (apiKey) {
-            $(apiKeySelector).val(apiKey);
-        }
+
         if (activityName) {
             $(activityNameSelector).val(activityName);
         }
@@ -221,7 +217,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
             }
         }
         inArguments.push({ "messageTemplate": getMessageTemplate() });
-        inArguments.push({ "apiKey": getApiKey() });
         inArguments.push({ "phone": getPhone() });
         inArguments.push({ 'activityName': activityName });
         inArguments.push({ 'sender': senderSelectorValue });
@@ -390,9 +385,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         return $(messageTemplateSelector)[0].value;
     }
 
-    function getApiKey() {
-        return $(apiKeySelector)[0].value;
-    }
+
 
     function getPhone() {
         return $(phoneSelector).val();
@@ -405,11 +398,9 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
 
     function isValidInput() {
         var message = getMessageTemplate();
-        var apiKey = getApiKey();
         var phone = getPhone();
         var sender = getSender();
         var infoMissing = isEmptyString(message)
-            || isEmptyString(apiKey)
             || isEmptyString(phone)
             || (usesCustomSender() && isEmptyString(sender));
         return !infoMissing;
