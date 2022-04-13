@@ -15,7 +15,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     ];
     var currentStep = steps[0].key;
     var activityName = undefined;
-    var smsActivityNamePrefix = "infobipSmsActivity";
+    var smsActivityNamePrefix = "infobipSmsActivity"; //TODO
     var placeholderListSelector = '#ib-placeholder-list';
     var messageTemplateSelector = 'textarea#ib-message-template-input';
     var apiKeySelector = 'input#ib-api-key-input';
@@ -69,7 +69,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         headers.append("Content-Type", "application/json")
 
         const body = {
-          "test": "event"
+          "test": "La la o la la la, Ga Ga o la la la !"
         }
 
         const options = {
@@ -87,10 +87,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         connection.trigger('updateButton', { button: 'next', enabled: validInput });
        
     }
-
-
-
-
 
 
     function onInitActivity (data) {
@@ -373,12 +369,12 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
 
     function getActivityName() {
         if (isEmptyString(activityName)) {
-            activityName = constructActivityName();
+            activityName = constructActivityName(); //TODO
         }
         return activityName;
     }
 
-    function constructActivityName() {
+    function constructActivityName() { //TODO
         var namedActivities = $.grep(journeyData['activities'], function(activity) {
             return !isEmptyString(activity.name) && activity.name.startsWith(smsActivityNamePrefix);
         });
