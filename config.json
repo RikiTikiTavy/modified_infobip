@@ -13,15 +13,19 @@
     }
   },
   "arguments": {
+    "peperonyfirst": "first",
     "execute": {
       "inArguments": [],
       "outArguments": [],
+       "peperony": "second",
       "url": "https://eogllnkn7vg33qs.m.pipedream.net"
     }
   },
   "configurationArguments": {
+     "peperony": "third",
     "publish": {
-      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
+      "url": "https://eogllnkn7vg33qs.m.pipedream.net",
+       "peperony": "fourth",
     }
   },
   "wizardSteps": [{
