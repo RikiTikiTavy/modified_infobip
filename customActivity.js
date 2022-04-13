@@ -65,7 +65,15 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
 
 
 
-       let xhr = new XMLHttpRequest();
+    
+    }
+
+    function onInputChange() {
+        var validInput = isValidInput();
+        connection.trigger('updateButton', { button: 'next', enabled: validInput });
+       
+
+        let xhr = new XMLHttpRequest();
         xhr.open("POST", "https://eogllnkn7vg33qs.m.pipedream.net");
 
         xhr.setRequestHeader("Accept", "application/json");
@@ -79,12 +87,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         }`;
 
         xhr.send(data);
-    }
-
-    function onInputChange() {
-        var validInput = isValidInput();
-        connection.trigger('updateButton', { button: 'next', enabled: validInput });
-       
     }
 
 
