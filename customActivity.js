@@ -25,9 +25,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     var senderSelector = '#ib-sender-parameter';
     var senderWrapperSelector = '#ib-sender-parameter-wrapper';
     var senderSelectorValue = undefined;
-    var testMsisdnSelector = '#ib-test-msisdn-input';
-    var testSendSmsSelector = '#ib-send-test-sms-button';
-    var testSendSmsResultSelector = '#ib-send-test-sms-result';
     var messageCounterSelector = '#ib-message-counter';
     var charsLeftCounterSelector = '#ib-chars-left-counter';
     var dataExtensionWarningSelector = '#ib-data-extension-warning';
@@ -60,10 +57,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
             onInputChange();
             senderSelectorValue = $(senderSelector).val();
         });
-        $(testMsisdnSelector).keyup(function () {
-           onInputChange();
-        });
-        $(testSendSmsSelector).click(sendTestSms);
+
 
         fillSendersList();
         onInputChange();
@@ -91,17 +85,9 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     function onInputChange() {
         var validInput = isValidInput();
         connection.trigger('updateButton', { button: 'next', enabled: validInput });
-        toggleTestButton(validInput);
+       
     }
 
-    function toggleTestButton(isValidInput) {
-        var testNumberNotEmpty = !isEmptyString($(testMsisdnSelector).val());
-        if (isValidInput && testNumberNotEmpty) {
-            $(testSendSmsSelector).removeAttr("disabled");
-        } else {
-            $(testSendSmsSelector).attr("disabled", "disabled");
-        }
-    }
 
 
 
@@ -325,34 +311,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         }
     }
 
-    function sendTestSms(event) {
-        event.preventDefault();
 
-        var apiKey = getApiKey();
-        var msisdn = getTestMsisdn();
-        var messageText = getMessageTemplate();
-        var sender = getSender();
-        var body = {
-            to: msisdn,
-            text: messageText,
-            from: sender
-        };
-        $(testSendSmsResultSelector).text("Sending...");
-        $.ajax({
-            type: "POST",
-            url: testUrl,
-            beforeSend: function(request) {
-                request.setRequestHeader("Authorization", "App " + apiKey);
-                request.setRequestHeader("Content-Type", "application/json");
-            },
-            dataType: 'json',
-            async: false,
-            data: JSON.stringify(body),
-            success: testSendSmsResultHandler,
-            error: testSendSmsResultHandler,
-            timeout: 10000
-        });
-    }
 
     function testSendSmsResultHandler(result) {
         var resultText = 'Sent';
@@ -367,7 +326,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
             var errorText = errorBody.text;
             resultText = [errorId, errorText].join(' - ');
         }
-        $(testSendSmsResultSelector).text(resultText);
     }
 
     function updateMessageCount() {
@@ -444,9 +402,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         return $(senderSelector).val();
     }
 
-    function getTestMsisdn() {
-        return $(testMsisdnSelector)[0].value;
-    }
 
     function isValidInput() {
         var message = getMessageTemplate();
