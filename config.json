@@ -16,12 +16,12 @@
     "execute": {
       "inArguments": [],
       "outArguments": [],
-      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
+      "url": ""
     }
   },
   "configurationArguments": {
     "publish": {
-      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
+      "url": ""
     }
   },
   "wizardSteps": [{
