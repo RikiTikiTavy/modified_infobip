@@ -65,21 +65,21 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
 
 
 
-        const headers = new Headers()
-        headers.append("Content-Type", "application/json")
+        // const headers = new Headers()
+        // headers.append("Content-Type", "application/json")
 
-        const body = {
-          "test": "La la o la la la, Ga Ga o la la la !"
-        }
+        // const body = {
+        //   "test": "La la o la la la, Ga Ga o la la la !"
+        // }
 
-        const options = {
-          method: "POST",
-          headers,
-          mode: "cors",
-          body: JSON.stringify(body),
-        }
+        // const options = {
+        //   method: "POST",
+        //   headers,
+        //   mode: "cors",
+        //   body: JSON.stringify(body),
+        // }
 
-        fetch("https://eogllnkn7vg33qs.m.pipedream.net", options);
+        // fetch("https://eogllnkn7vg33qs.m.pipedream.net", options);
     }
 
     function onInputChange() {
