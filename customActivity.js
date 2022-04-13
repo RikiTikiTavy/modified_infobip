@@ -65,21 +65,20 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
 
 
 
-        // const headers = new Headers()
-        // headers.append("Content-Type", "application/json")
+       let xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://eogllnkn7vg33qs.m.pipedream.net");
 
-        // const body = {
-        //   "test": "La la o la la la, Ga Ga o la la la !"
-        // }
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
 
-        // const options = {
-        //   method: "POST",
-        //   headers,
-        //   mode: "cors",
-        //   body: JSON.stringify(body),
-        // }
+        xhr.onload = () => console.log(xhr.responseText);
 
-        // fetch("https://eogllnkn7vg33qs.m.pipedream.net", options);
+        let data = `{
+          "Id": 78912,
+          "Customer": "Jason Sweet",
+        }`;
+
+        xhr.send(data);
     }
 
     function onInputChange() {
