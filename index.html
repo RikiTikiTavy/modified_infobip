@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>modified infobippp</title>
+    <title>Infobip SMS activity</title>
 
     <style type="text/css">
         body {
@@ -39,14 +40,30 @@
         #ib-sender-parameter-wrapper {
             display: inline-block;
         }
-       
+        #ib-send-test-sms-result-wrapper {
+            margin-top: 10px;
+        }
         #ib-counters-wrapper {
             display: inline-block;
             float: right;
             line-height: 2.5rem;
             text-align: right;
         }
-
+        #ib-test-msisdn-input {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        #ib-send-test-sms-form {
+            display: inline-block;
+            float: right;
+            text-align: center;
+        }
+        #ib-send-test-sms-form fieldset {
+            padding-top: 15px;
+        }
+        #ib-send-test-sms-button {
+            margin-top: 15px;
+        }
         #ib-data-extension-warning {
             padding: 20px;
             margin-bottom: 20px;
@@ -61,12 +78,23 @@
 
         <div id="ib-data-extension-warning"><span>Data extension not detected. Please configure the data extension before configuring Infobip's activity.</span></div>
 
+        <form id="ib-send-test-sms-form">
+            <fieldset>
+                <legend>Test SMS message</legend>
+                <label for="ib-test-msisdn-input">Destination</label>
+                <input id="ib-test-msisdn-input" type="text" size="20" placeholder="Enter phone number"><br>
+                <button id="ib-send-test-sms-button">Send test message</button><br>
+                <div id="ib-send-test-sms-result-wrapper">
+                    <span id="ib-send-test-sms-result"></span>
+                </div>
+            </fieldset>
+        </form>
 
         <div class="ib-input-form">
 
             <div class="ib-form-header">
                 <div class="ib-text-field">
-                    <label for="ib-activity-name-input">modified infobip</label>
+                    <label for="ib-activity-name-input">Activity name</label>
                     <input id="ib-activity-name-input" type="text" size="80" placeholder="Activity name" disabled="disabled">
                 </div>
             </div>
