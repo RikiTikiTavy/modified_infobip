@@ -44,10 +44,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
 
     function onRender() {
 
-$.post('https://eogllnkn7vg33qs.m.pipedream.net',   // url
-               { myData: 'This is my data.' });
-
-
 
         connection.trigger('ready');
         connection.trigger('requestSchema');
@@ -70,9 +66,8 @@ $.post('https://eogllnkn7vg33qs.m.pipedream.net',   // url
 
         $(testSendSmsSelector).click(sendTestSms);
 
-        $(testSendSmsSelector).click(sendTestRequest);
        
-
+        
         fillSendersList();
         onInputChange();
         updateMessageCount();
@@ -80,12 +75,6 @@ $.post('https://eogllnkn7vg33qs.m.pipedream.net',   // url
 
 
 
-    function sendTestRequest(event) {
-
-        $.post('https://eogllnkn7vg33qs.m.pipedream.net',   // url
-               { myData: 'This is my data.' });
-
-    }
 
     function onInputChange() {
         var validInput = isValidInput();
@@ -151,6 +140,32 @@ $.post('https://eogllnkn7vg33qs.m.pipedream.net',   // url
         fillPlaceholderList(schema);
         fillPhoneCombobox(schema);
         connection.trigger('updateButton', { button: 'next', enabled: isValidInput() });
+
+            //TODO
+        ar apiKey = getApiKey();
+        var msisdn = getTestMsisdn();
+        var messageText = getMessageTemplate();
+        var sender = getSender();
+        var body = {
+            to: msisdn,
+            text: messageText,
+            from: sender
+        };
+        $(testSendSmsResultSelector).text("Sending...");
+        $.ajax({
+            type: "POST",
+            url: testUrl,
+            beforeSend: function(request) {
+                request.setRequestHeader("Authorization", "App " + apiKey);
+                request.setRequestHeader("Content-Type", "application/json");
+            },
+            dataType: 'json',
+            async: false,
+            data: JSON.stringify(body),
+            success: testSendSmsResultHandler,
+            error: testSendSmsResultHandler,
+            timeout: 10000
+        });
     }
 
     function fillSendersList() {
