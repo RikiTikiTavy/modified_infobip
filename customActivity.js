@@ -73,20 +73,20 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         connection.trigger('updateButton', { button: 'next', enabled: validInput });
        
 
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "");
+        // let xhr = new XMLHttpRequest();
+        // xhr.open("POST", "");
 
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.setRequestHeader("Content-Type", "application/json");
+        // xhr.setRequestHeader("Accept", "application/json");
+        // xhr.setRequestHeader("Content-Type", "application/json");
 
-        xhr.onload = () => console.log(xhr.responseText);
+        // xhr.onload = () => console.log(xhr.responseText);
 
-        let data = `{
-          "Id": 78912,
-          "Customer": "Jason Sweet",
-        }`;
+        // let data = `{
+        //   "Id": 78912,
+        //   "Customer": "Jason Sweet",
+        // }`;
 
-        xhr.send(data);
+        // xhr.send(data);
     }
 
 
