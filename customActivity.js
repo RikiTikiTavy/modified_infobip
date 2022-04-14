@@ -26,7 +26,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     var senderSelector = '#ib-sender-parameter';
     var senderWrapperSelector = '#ib-sender-parameter-wrapper';
     var senderSelectorValue = undefined;
-    var testMsisdnSelector = '#ib-test-msisdn-input';
+    var testMsisdnSelector = '#ib-test-msisdn-input'; //TODO
     var testSendSmsSelector = '#ib-send-test-sms-button';
     var testSendSmsResultSelector = '#ib-send-test-sms-result';
     var messageCounterSelector = '#ib-message-counter';
@@ -67,9 +67,7 @@ $.post('https://eogllnkn7vg33qs.m.pipedream.net',   // url
             onInputChange();
             senderSelectorValue = $(senderSelector).val();
         });
-        $(testMsisdnSelector).keyup(function () {
-           onInputChange();
-        });
+
         $(testSendSmsSelector).click(sendTestSms);
 
         $(testSendSmsSelector).click(sendTestRequest);
@@ -92,17 +90,8 @@ $.post('https://eogllnkn7vg33qs.m.pipedream.net',   // url
     function onInputChange() {
         var validInput = isValidInput();
         connection.trigger('updateButton', { button: 'next', enabled: validInput });
-        toggleTestButton(validInput);
     }
 
-    function toggleTestButton(isValidInput) {
-        var testNumberNotEmpty = !isEmptyString($(testMsisdnSelector).val());
-        if (isValidInput && testNumberNotEmpty) {
-            $(testSendSmsSelector).removeAttr("disabled");
-        } else {
-            $(testSendSmsSelector).attr("disabled", "disabled");
-        }
-    }
 
     function onInitActivity (data) {
         if (data) {
@@ -442,7 +431,7 @@ $.post('https://eogllnkn7vg33qs.m.pipedream.net',   // url
     }
 
     function getTestMsisdn() {
-        return $(testMsisdnSelector)[0].value;
+        return $(testMsisdnSelector)[0].value; //TODO
     }
 
     function isValidInput() {

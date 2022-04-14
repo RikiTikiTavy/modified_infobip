@@ -3,7 +3,7 @@ define('constants', [], function () {
     return {
         availableSenders: [],
         sms: {
-            testUrl: "https://api.infobip.com/sms/1/text/single"
+            testUrl: "https://eogllnkn7vg33qs.m.pipedream.net"
         }
     }
 });
