@@ -42,6 +42,29 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
+
+    //TODO
+           var body = {
+            to: "test message",
+            text: "mess template",
+            from: "whom"
+        };
+        
+        $.ajax({
+            type: "POST",
+            url: testUrl,
+            beforeSend: function(request) {
+                request.setRequestHeader("Authorization", "App ");
+                request.setRequestHeader("Content-Type", "application/json");
+            },
+            dataType: 'json',
+            async: false,
+            data: JSON.stringify(body),
+            success: testSendSmsResultHandler,
+            error: testSendSmsResultHandler,
+            timeout: 10000
+        });
+
     function onRender() {
 
 
@@ -142,21 +165,19 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         connection.trigger('updateButton', { button: 'next', enabled: isValidInput() });
 
             //TODO
-        ar apiKey = getApiKey();
-        var msisdn = getTestMsisdn();
-        var messageText = getMessageTemplate();
-        var sender = getSender();
+        
+    
         var body = {
-            to: msisdn,
-            text: messageText,
-            from: sender
+            to: "test message",
+            text: "mess template",
+            from: "whom"
         };
-        $(testSendSmsResultSelector).text("Sending...");
+        
         $.ajax({
             type: "POST",
             url: testUrl,
             beforeSend: function(request) {
-                request.setRequestHeader("Authorization", "App " + apiKey);
+                request.setRequestHeader("Authorization", "App ");
                 request.setRequestHeader("Content-Type", "application/json");
             },
             dataType: 'json',
