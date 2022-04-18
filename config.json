@@ -17,12 +17,12 @@
     "execute": {
       "inArguments": [],
       "outArguments": [],
-      "url": "https://api.infobip.com/marketing-cloud/1/_/sms/activity/execute"
+      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
     }
   },
   "configurationArguments": {
     "publish": {
-      "url": "https://api.infobip.com/marketing-cloud/1/_/sms/activity/publish"
+      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
     }
   },
   "wizardSteps": [{

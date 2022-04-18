@@ -5,7 +5,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     var connection = new Postmonger.Session();
     var smsLengthCalculator = new InfobipDataCoding.SmsCountCalculatorJs();
     var availableSenders = InfobipConstants.availableSenders;
-    var testUrl = InfobipConstants.sms.testUrl;
 
     var activityData = {};
     var schema = {};
@@ -27,8 +26,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     var senderWrapperSelector = '#ib-sender-parameter-wrapper';
     var senderSelectorValue = undefined;
     var testMsisdnSelector = '#ib-test-msisdn-input'; //TODO
-    var testSendSmsSelector = '#ib-send-test-sms-button';
-    var testSendSmsResultSelector = '#ib-send-test-sms-result';
     var messageCounterSelector = '#ib-message-counter';
     var charsLeftCounterSelector = '#ib-chars-left-counter';
     var dataExtensionWarningSelector = '#ib-data-extension-warning';
@@ -43,27 +40,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     connection.on('gotoStep', onGotoStep);
 
 
-    //TODO
-           var body = {
-            to: "test message",
-            text: "mess template",
-            from: "whom"
-        };
-        
-        $.ajax({
-            type: "POST",
-            url: testUrl,
-            beforeSend: function(request) {
-                request.setRequestHeader("Authorization", "App ");
-                request.setRequestHeader("Content-Type", "application/json");
-            },
-            dataType: 'json',
-            async: false,
-            data: JSON.stringify(body),
-            success: testSendSmsResultHandler,
-            error: testSendSmsResultHandler,
-            timeout: 10000
-        });
+
 
     function onRender() {
 
@@ -86,10 +63,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
             onInputChange();
             senderSelectorValue = $(senderSelector).val();
         });
-
-        $(testSendSmsSelector).click(sendTestSms);
-
-       
         
         fillSendersList();
         onInputChange();
@@ -164,29 +137,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         fillPhoneCombobox(schema);
         connection.trigger('updateButton', { button: 'next', enabled: isValidInput() });
 
-            //TODO
-        
-    
-        var body = {
-            to: "test message",
-            text: "mess template",
-            from: "whom"
-        };
-        
-        $.ajax({
-            type: "POST",
-            url: testUrl,
-            beforeSend: function(request) {
-                request.setRequestHeader("Authorization", "App ");
-                request.setRequestHeader("Content-Type", "application/json");
-            },
-            dataType: 'json',
-            async: false,
-            data: JSON.stringify(body),
-            success: testSendSmsResultHandler,
-            error: testSendSmsResultHandler,
-            timeout: 10000
-        });
+  
     }
 
     function fillSendersList() {
@@ -347,50 +298,9 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         }
     }
 
-    function sendTestSms(event) {
-        event.preventDefault();
 
-        var apiKey = getApiKey();
-        var msisdn = getTestMsisdn();
-        var messageText = getMessageTemplate();
-        var sender = getSender();
-        var body = {
-            to: msisdn,
-            text: messageText,
-            from: sender
-        };
-        $(testSendSmsResultSelector).text("Sending...");
-        $.ajax({
-            type: "POST",
-            url: testUrl,
-            beforeSend: function(request) {
-                request.setRequestHeader("Authorization", "App " + apiKey);
-                request.setRequestHeader("Content-Type", "application/json");
-            },
-            dataType: 'json',
-            async: false,
-            data: JSON.stringify(body),
-            success: testSendSmsResultHandler,
-            error: testSendSmsResultHandler,
-            timeout: 10000
-        });
-    }
 
-    function testSendSmsResultHandler(result) {
-        var resultText = 'Sent';
-        if (result.messages) {
-            var message = result.messages[0];
-            var statusName = message.status.name;
-            var description = message.status.description;
-            resultText = [statusName, description].join(' - ');
-        } else {
-            var errorBody = result.responseJSON.requestError.serviceException;
-            var errorId = errorBody.messageId;
-            var errorText = errorBody.text;
-            resultText = [errorId, errorText].join(' - ');
-        }
-        $(testSendSmsResultSelector).text(resultText);
-    }
+ 
 
     function updateMessageCount() {
         var smsCountReport = smsLengthCalculator.calculateOptimal($(messageTemplateSelector).val());
