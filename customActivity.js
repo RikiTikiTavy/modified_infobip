@@ -25,7 +25,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     var senderSelector = '#ib-sender-parameter';
     var senderWrapperSelector = '#ib-sender-parameter-wrapper';
     var senderSelectorValue = undefined;
-    var testMsisdnSelector = '#ib-test-msisdn-input'; //TODO
     var messageCounterSelector = '#ib-message-counter';
     var charsLeftCounterSelector = '#ib-chars-left-counter';
     var dataExtensionWarningSelector = '#ib-data-extension-warning';
@@ -39,7 +38,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
-
+    console.log("main");
 
 
     function onRender() {
@@ -67,14 +66,20 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         fillSendersList();
         onInputChange();
         updateMessageCount();
+
+        console.log("onRender");
+
+
+        // $.post('https://eogllnkn7vg33qs.m.pipedream.net',   
+        //        { myData: 'This is my data.' });
     }
-
-
 
 
     function onInputChange() {
         var validInput = isValidInput();
         connection.trigger('updateButton', { button: 'next', enabled: validInput });
+
+        console.log("onInputChange");
     }
 
 
@@ -125,6 +130,9 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
 
         showStep(null, 1);
         connection.trigger('updateButton', { button: 'next', enabled: isValidInput() });
+
+
+        console.log("onInitActivity");
     }
 
     function onRequestedSchema (data) {
@@ -137,7 +145,8 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         fillPhoneCombobox(schema);
         connection.trigger('updateButton', { button: 'next', enabled: isValidInput() });
 
-  
+
+        console.log("onRequestedSchema");
     }
 
     function fillSendersList() {
@@ -152,6 +161,8 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
                 }
             })
         }
+
+        console.log("fillSendersList");
     }
 
     function fillPlaceholderList(schema) {
@@ -164,6 +175,9 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
                 }
             }
         }
+
+
+        console.log("fillPlaceholderList");
     }
 
     function fillPhoneCombobox(schema) {
@@ -178,12 +192,18 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
                 }
             }
         }
+
+
+        console.log("fillPhoneCombobox");
     }
 
     function onRequestedInteraction(data) {
         journeyData = data;
         activityName = getActivityName();
         $(activityNameSelector).val(activityName);
+
+
+        console.log("onRequestedInteraction");
     }
 
     function save() {
@@ -193,6 +213,8 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         configureOutArgumentsSchema();
         activityData['metaData'].isConfigured = true;
         connection.trigger('updateActivity', activityData);
+
+        console.log("save");
     }
 
     function configureInArguments() {
@@ -213,6 +235,8 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         inArguments.push({ 'activityName': activityName });
         inArguments.push({ 'sender': senderSelectorValue });
         activityData['arguments'].execute.inArguments = inArguments;
+
+        console.log("configureInArguments");
     }
 
     function configureOutArguments() {
@@ -220,12 +244,16 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         outArguments.push(createOutArgument('infobip_sms_message_id'));
         outArguments.push(createOutArgument('infobip_sms_message_preliminary_status'));
         activityData['arguments'].execute.outArguments = outArguments;
+
+        console.log("configureOutArguments");
     }
 
     function createOutArgument(name) {
         var outArgument = {};
         outArgument[createOutArgumentName(name)] = 'String';
         return outArgument;
+
+        console.log("createOutArgument");
     }
 
     function configureOutArgumentsSchema() {
@@ -233,6 +261,8 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         outArgumentsSchemaEntries.push(createOutArgumentSchemaEntry('infobip_sms_message_id'));
         outArgumentsSchemaEntries.push(createOutArgumentSchemaEntry('infobip_sms_message_preliminary_status'));
         activityData.schema['arguments'].execute.outArguments = outArgumentsSchemaEntries;
+
+        console.log("configureOutArgumentsSchema");
     }
 
     function createOutArgumentSchemaEntry(name) {
@@ -241,7 +271,11 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
             dataType: "Text",
             direction: "out"
         };
+
+
+        console.log("createOutArgumentSchemaEntry");
         return outArgumentSchemaEntry;
+
     }
 
     function onClickedNext () {
@@ -376,9 +410,7 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         return $(senderSelector).val();
     }
 
-    function getTestMsisdn() {
-        return $(testMsisdnSelector)[0].value; //TODO
-    }
+
 
     function isValidInput() {
         var message = getMessageTemplate();

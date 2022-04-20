@@ -43,6 +43,8 @@
 	Connection = Postmonger.Connection = function (options) {
 		options = (typeof(options) === 'object') ? options : {};
 
+		console.log("Postmonger_session");
+
 		var connect = options.connect || _window.parent;
 		var from = options.from || '*';
 		var to = options.to || '*';
@@ -80,6 +82,9 @@
 
 	//Postmonger.Events - Hacked together from Backbone.Events and two Underscore functions.
 	Events = Postmonger.Events = function () {
+
+		console.log("Postmonger.Events");
+
 		var eventSplitter = /\s+/;
 		var self = this;
 
@@ -110,6 +115,8 @@
 		};
 
 		self.on = function (events, callback, context) {
+			console.log("console.on");
+
 			var calls, event, node, tail, list;
 
 			if (!callback) {
@@ -141,6 +148,8 @@
 		};
 
 		self.off = function (events, callback, context) {
+
+			console.log("console.off");
 			var calls = self._callbacks;
 			var event, node, tail, cb, ctx;
 
@@ -176,6 +185,8 @@
 		};
 
 		self.trigger = function (events) {
+			console.log("console.trigger");
+
 			var event, node, calls, tail, args, all, rest;
 
 			if (!(calls = self._callbacks)) {
@@ -210,6 +221,8 @@
 
 	//Create a new Postmonger Session
 	Session = Postmonger.Session = function () {
+
+		console.log("Postmonger.Session");
 		var args = (arguments.length>0) ? Array.prototype.slice.call(arguments, 0) : [{}];
 		var connections = [];
 		var incoming = new Events();
@@ -254,6 +267,9 @@
 
 		//Listener for incoming messages
 		postMessageListener = function(event){
+
+			console.log("postMessageListener");
+
 			var conn = null;
 			var message = [];
 			var data;
@@ -312,6 +328,7 @@
 
 		//Sending outgoing messages
 		outgoing.on('all', function () {
+			console.log("POST MESSAGE");
 			var args = Array.prototype.slice.call(arguments, 0);
 			var message = {};
 			var k, len;
@@ -322,7 +339,10 @@
 				message['a' + k] = args[k];
 			}
 
+
 			for (k=0, len=connections.length; k<len; k++) {
+				console.log("inside cycle");
+				
 				connections[k].connect.postMessage(JSON.stringify(message), connections[k].to);
 			}
 		});
