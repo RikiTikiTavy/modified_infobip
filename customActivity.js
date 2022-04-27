@@ -2,6 +2,7 @@
 define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, InfobipDataCoding, InfobipConstants) {
     'use strict';
 
+
     var connection = new Postmonger.Session();
     var smsLengthCalculator = new InfobipDataCoding.SmsCountCalculatorJs();
     var availableSenders = InfobipConstants.availableSenders;
@@ -70,8 +71,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         console.log("onRender");
 
 
-        // $.post('https://eogllnkn7vg33qs.m.pipedream.net',   
-        //        { myData: 'This is my data.' });
     }
 
 
@@ -138,6 +137,8 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     function onRequestedSchema (data) {
         schema = data['schema'];
 
+
+
         var schemaPresent = schema !== undefined && schema.length > 0;
         $(dataExtensionWarningSelector).toggle(!schemaPresent);
 
@@ -146,10 +147,11 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         connection.trigger('updateButton', { button: 'next', enabled: isValidInput() });
 
 
-        console.log("onRequestedSchema");
     }
 
     function fillSendersList() {
+
+
         if (!usesCustomSender()) {
             $(senderWrapperSelector).hide();
         } else {
@@ -162,25 +164,30 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
             })
         }
 
-        console.log("fillSendersList");
     }
 
     function fillPlaceholderList(schema) {
+
         if (schema !== undefined && schema.length > 0) {
             for (var i in schema) {
                 var field = schema[i];
                 var fieldName = extractFieldName(field);
+
                 if (isEventDataSourceField(field)) {
+
+
+
                     $(placeholderListSelector).append('<li>%' + fieldName + '%</li>');
                 }
             }
         }
 
-
-        console.log("fillPlaceholderList");
     }
 
     function fillPhoneCombobox(schema) {
+
+
+
         if (schema !== undefined && schema.length > 0) {
             for (var i in schema) {
                 var field = schema[i];
@@ -194,7 +201,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         }
 
 
-        console.log("fillPhoneCombobox");
     }
 
     function onRequestedInteraction(data) {
@@ -203,7 +209,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         $(activityNameSelector).val(activityName);
 
 
-        console.log("onRequestedInteraction");
     }
 
     function save() {
@@ -214,16 +219,29 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         activityData['metaData'].isConfigured = true;
         connection.trigger('updateActivity', activityData);
 
-        console.log("save");
     }
 
     function configureInArguments() {
+
+
+
+
         var inArguments = [];
         if (schema !== undefined && schema.length > 0) {
+
+
+
+     
+
             for (var i in schema) {
                 var field = schema[i];
+
+
                 if (isEventDataSourceField(field)) {
                     var fieldName = extractFieldName(field);
+ 
+
+
                     var prefixedFieldName = 'com.infobip.event.data.' + fieldName;
                     saveFieldToInArguments(field, prefixedFieldName, inArguments);
                 }
@@ -236,16 +254,19 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         inArguments.push({ 'sender': senderSelectorValue });
         activityData['arguments'].execute.inArguments = inArguments;
 
-        console.log("configureInArguments");
     }
 
     function configureOutArguments() {
+
+
+
         var outArguments = [];
         outArguments.push(createOutArgument('infobip_sms_message_id'));
         outArguments.push(createOutArgument('infobip_sms_message_preliminary_status'));
         activityData['arguments'].execute.outArguments = outArguments;
 
-        console.log("configureOutArguments");
+
+
     }
 
     function createOutArgument(name) {
@@ -253,19 +274,23 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         outArgument[createOutArgumentName(name)] = 'String';
         return outArgument;
 
-        console.log("createOutArgument");
     }
 
     function configureOutArgumentsSchema() {
+
+
         var outArgumentsSchemaEntries = [];
         outArgumentsSchemaEntries.push(createOutArgumentSchemaEntry('infobip_sms_message_id'));
         outArgumentsSchemaEntries.push(createOutArgumentSchemaEntry('infobip_sms_message_preliminary_status'));
         activityData.schema['arguments'].execute.outArguments = outArgumentsSchemaEntries;
 
-        console.log("configureOutArgumentsSchema");
+
+ 
     }
 
     function createOutArgumentSchemaEntry(name) {
+
+
         var outArgumentSchemaEntry = {};
         outArgumentSchemaEntry[createOutArgumentName(name)] = {
             dataType: "Text",
@@ -273,7 +298,6 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
         };
 
 
-        console.log("createOutArgumentSchemaEntry");
         return outArgumentSchemaEntry;
 
     }
@@ -337,6 +361,8 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
  
 
     function updateMessageCount() {
+
+
         var smsCountReport = smsLengthCalculator.calculateOptimal($(messageTemplateSelector).val());
         var messageCount = smsCountReport.getMessageCount();
         var messageCountText = messageCount === 1 ? "message" : "messages";
@@ -355,11 +381,16 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     }
 
     function extractFieldName(field) {
+
+
+
         var index = field.key.lastIndexOf('.');
         return field.key.substring(index + 1);
     }
 
     function saveFieldToInArguments(field, fieldName, inArguments) {
+
+
         var obj = {};
         obj[fieldName] = "{{" + sanitize(field.key) + "}}";
         inArguments.push(obj);

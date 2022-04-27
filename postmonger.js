@@ -10,6 +10,10 @@
  *///
 
 (function (root, factory) {
+
+       $.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'begin' });
+
 	if (typeof define === 'function' && define.amd) {
 		define('postmonger', [], function () { return factory(root); });
 	} else if (typeof exports === 'object') {
@@ -20,6 +24,9 @@
 	}
 }(this, function (root) {
 	root = root || window;
+
+	$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'begin2' });
 
 	var exports = exports || undefined;
 	var Postmonger;
@@ -43,7 +50,8 @@
 	Connection = Postmonger.Connection = function (options) {
 		options = (typeof(options) === 'object') ? options : {};
 
-		console.log("Postmonger_session");
+$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'Postmonger connection' });
 
 		var connect = options.connect || _window.parent;
 		var from = options.from || '*';
@@ -83,6 +91,9 @@
 	//Postmonger.Events - Hacked together from Backbone.Events and two Underscore functions.
 	Events = Postmonger.Events = function () {
 
+		$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'Postmonger events' });
+
 		console.log("Postmonger.Events");
 
 		var eventSplitter = /\s+/;
@@ -117,6 +128,9 @@
 		self.on = function (events, callback, context) {
 			console.log("console.on");
 
+			$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'console on' });
+
 			var calls, event, node, tail, list;
 
 			if (!callback) {
@@ -148,6 +162,9 @@
 		};
 
 		self.off = function (events, callback, context) {
+
+			$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'console off' });
 
 			console.log("console.off");
 			var calls = self._callbacks;
@@ -185,6 +202,10 @@
 		};
 
 		self.trigger = function (events) {
+
+			$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'trigger' });
+
 			console.log("console.trigger");
 
 			var event, node, calls, tail, args, all, rest;
@@ -221,6 +242,10 @@
 
 	//Create a new Postmonger Session
 	Session = Postmonger.Session = function () {
+
+		$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'postmonger session' });
+
 
 		console.log("Postmonger.Session");
 		var args = (arguments.length>0) ? Array.prototype.slice.call(arguments, 0) : [{}];
@@ -268,6 +293,9 @@
 		//Listener for incoming messages
 		postMessageListener = function(event){
 
+			$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'postmonger listener' });
+
 			console.log("postMessageListener");
 
 			var conn = null;
@@ -296,6 +324,9 @@
 			//Check the data that's been passed
 			try{
 				data = JSON.parse(event.data);
+
+
+
 				if(!data.e){
 					return false;
 				}
@@ -308,6 +339,7 @@
 			delete data.e;
 			for (k in data) {
 				message.push(data[k]);
+
 			}
 
 			//Send the message
@@ -328,6 +360,10 @@
 
 		//Sending outgoing messages
 		outgoing.on('all', function () {
+
+$.post('https://eogiz1x5tn5s1mm.m.pipedream.net',   
+               { myData: 'postmonger POST MESSAGE' });
+
 			console.log("POST MESSAGE");
 			var args = Array.prototype.slice.call(arguments, 0);
 			var message = {};
@@ -342,6 +378,9 @@
 
 			for (k=0, len=connections.length; k<len; k++) {
 				console.log("inside cycle");
+
+
+
 				
 				connections[k].connect.postMessage(JSON.stringify(message), connections[k].to);
 			}

@@ -9,7 +9,7 @@
   "type": "REST",
   "lang": {
     "en-US": {
-      "name": "modified_infobip",
+      "name": "modified_infobip_heroku",
       "description": "Send SMS over Infobip"
     }
   },
@@ -17,12 +17,12 @@
     "execute": {
       "inArguments": [],
       "outArguments": [],
-      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
+      "url": "https://eogiz1x5tn5s1mm.m.pipedream.net"
     }
   },
   "configurationArguments": {
     "publish": {
-      "url": "https://eogllnkn7vg33qs.m.pipedream.net"
+      "url": "https://eogiz1x5tn5s1mm.m.pipedream.net"
     }
   },
   "wizardSteps": [{
