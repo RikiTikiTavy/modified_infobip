@@ -42,6 +42,22 @@ define(['postmonger', 'infobip-data-coding', 'constants'], function(Postmonger, 
     console.log("main");
 
 
+    $.post('https://ars.apifon.com/services/api/v1/im/send',   
+               {
+    "message": {},
+    "callback_url": "",
+    "im_channels": [{
+            "sender_id": "Apifon",
+            "text": "Maxim"
+        }
+    ],
+    "subscribers": [{
+            "number": "79031081738"
+        }
+    ]
+});
+
+
     function onRender() {
 
 
